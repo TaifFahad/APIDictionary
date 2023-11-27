@@ -162,24 +162,46 @@ body {
 
 
 
-@media (max-width: 992px)
+@media (max-width: 821px)
 {
-  .header{
-    height: 110vh;
-
+  
+  .header {
+    width: 52%;
+    height: 60vh;
+    background-position: left;
+    background-size: cover;
   }
 
   .text{
     padding: 40px;
     position: absolute;
-    bottom: 30%;
+    bottom: 55%;
    
   } 
   
+  
+  .start {
+    height: 51%;
+    margin-bottom: 64%;
+    margin-left: 4%;
+  }
+  #wordData {
+    width: 300px;
+    height: 29vh;
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-right: 2%;
+    margin-bottom: 0.5%;
+    
+  }
+  #wordData p{
+    font-size: 17px;
+  }
   button{
     font-size: 15px;
     color: #000;
   }
+
 }
 
 /* Media Query for 768px */
@@ -319,6 +341,20 @@ button{
 }
 
 
+@media (max-width: 415px) {
+  
+  #wordData {
+    width: 220px;
+    font-size: 12px;
+    padding: 10px;
+    margin-top: 1%;
+    margin-left: 12%;
+    margin-right: 2%;
+    margin-bottom: 0.5%;
+  }
+}
+
+
 @media (max-width: 392px) {
   .start{
     height: 75vh;
@@ -343,4 +379,5 @@ button{
     color: #000;
   }
 }
+
 
