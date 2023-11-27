@@ -22,20 +22,23 @@ function getData() {
     };
     xhr.send();
   } else {
-    displayError("Invalid word");
+    displayError("Sorry, Try Again");
   }
 }
 
 function displayData(data) {
   const wordDataElement = document.getElementById("wordData");
   wordDataElement.innerHTML = "";
+if (data.length > 0) {
+
 
   const word = data[0].word;
   const meaning = data[0].meanings[0];
-  const definition = meaning.definitions[0].definition;
+  const definition = data[0].meanings[0].definitions[0].definition;
   const example = meaning.definitions[0].example;
   const partOfSpeech = meaning.partOfSpeech;
   const synonyms = meaning.definitions[0].synonyms;
+  const antonyms= meaning.definitions[0].antonyms;
 
   const wordElement = document.createElement("p");
   wordElement.textContent = "Word: " + word;
@@ -60,19 +63,29 @@ function displayData(data) {
     synonymsElement.textContent = "Synonyms: Sorry, no synonyms available";
   }
 
+  const antonymsElement = document.createElement("p");
+  if (antonyms && antonyms.length > 0) {
+    antonymsElement.textContent = "antonyms: " + antonyms.join(", ");
+  } else {
+    antonymsElement.textContent = "Antonyms: Sorry, no Antonyms available";
+  }
   
-  const share = document.createElement("button");
-  share.textContent = "Share";
-  share.addEventListener("click", shareWord);
 
   wordDataElement.appendChild(wordElement);
   wordDataElement.appendChild(partOfSpeechElement);
   wordDataElement.appendChild(definitionElement);
   wordDataElement.appendChild(exampleElement);
   wordDataElement.appendChild(synonymsElement);
-  wordDataElement.appendChild(share);
+  wordDataElement.appendChild(antonymsElement);
+  
 
 }
+else{
+  displayError("Sorry, Try Again");
+}
+}
+
+
 function clearData() {
   const wordDataElement = document.getElementById("wordData");
   wordDataElement.innerHTML = "";
@@ -84,7 +97,7 @@ function shareWord() {
   const url = window.location.href;
   const shareText = `Check out the definition of '${word}' on this dictionary website: ${url}`;
 
-  // Use the Web Share API to open the share dialog
+ 
   if (navigator.share) {
     navigator.share({
       title: "Dictionary Word",
@@ -93,8 +106,16 @@ function shareWord() {
       .then(() => console.log("Shared successfully."))
       .catch((error) => console.log("Error sharing:", error));
   } else {
-    // Fallback behavior if the Web Share API is not supported
+    
     console.log("Web Share API is not supported.");
-    // You can provide an alternative share mechanism here, such as copying the shareText to the clipboard or opening a share dialog.
+    
   }
+}
+
+function displayError(errorMessage) {
+  const errorElement = document.createElement("p");
+  errorElement.textContent = errorMessage;
+  const wordDataElement = document.getElementById("wordData");
+  wordDataElement.innerHTML = "";
+  wordDataElement.appendChild(errorElement);
 }
